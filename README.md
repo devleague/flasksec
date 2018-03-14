@@ -1,4 +1,5 @@
-## Python web app for pentesting / intro to web development
+## FlaskSec
+ - Python web app for pentesting / intro to web development with python
 
 ### Initial setup / install Dependancies:
  - clone repo to local machine
