@@ -1,15 +1,16 @@
 from flask import render_template, flash, redirect, url_for, request
 from app import app, db
-from app.forms import LoginForm, RegistrationForm
+from app.forms import LoginForm, RegistrationForm, SubmitPost
 from flask_login import current_user, login_user, logout_user, login_required
-from app.models import User
+from app.models import User, Post
 from werkzeug.urls import url_parse
 
 @app.route('/')
 @app.route('/index')
 @login_required
 def index():
-    return render_template('index.html', title='Poop')
+    posts = Post.query.all()
+    return render_template('index.html', title='index', posts=posts)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -56,3 +57,15 @@ def register():
         flash('Congratulations, you are now a registered user! Please sign in')
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
+
+@app.route('/post', methods=['GET', 'POST'])
+def submit_post():
+    form = SubmitPost()
+    if request.method == 'POST':
+        user_post = Post(body=form.new_post.data)
+        print('user_post', user_post)
+        db.session.add(user_post)
+        db.session.commit()
+        flash('Your post was successfully submitted')                    
+        return redirect(url_for('index'))
+    return render_template('submit_post.html', form=form)

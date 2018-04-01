@@ -1,3 +1,4 @@
+from datetime import datetime
 from app import db, login
 from flask_login import UserMixin
 
@@ -23,3 +24,11 @@ class User(db.Model, UserMixin):
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
+
+class Post(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    body = db.Column(db.String(140))
+    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+
+    def __repr__(self):
+        return '<Post {}>'.format(self.body)

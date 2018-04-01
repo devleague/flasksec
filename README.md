@@ -11,15 +11,11 @@
 ### Start virtualenv
 ```source env/bin/activate```
 
-### Turn on debugger mode
-```export FLASK_DEBUG=1```
+### Run .env 
+```source .env```
 
-### Set environment variable
-```export FLASK_APP=server.py```
-
-### Link DATABASE_URL environment variable to local Postgres DB
- - Make sure to create postgres DB locally first
- - ```export DATABASE_URL="postgresql://localhost/dbName"```
+### Start flask server
+```flask run```
 
 ### Initialize Alembic for migrations
 ```python manage.py db init```
